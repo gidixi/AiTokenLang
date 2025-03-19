@@ -18,6 +18,7 @@ typedef enum {
     AST_LITERAL,
     AST_IDENTIFIER,
     AST_BREAK,
+    AST_WHILE,
     // ...eventuali altri
 } ASTNodeType;
 

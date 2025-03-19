@@ -9,7 +9,7 @@ const char *tokenNames[] = {
     "VAR", "INT", "FLOAT", "STRING", "BOOL",
     "IF", "ELSE", "THEN", "ENDIF", "LOOP", "NEXT",
     "DEFINE", "FUNCTION", "RETURN", "ENDDEF",
-    "PRINT", "BREAK",
+    "PRINT", "BREAK","ENDWHILE","WHILE"
     "IDENTIFIER", "INT_NUMBER", "FLOAT_NUMBER", "STRING_LITERAL",
     "ASSIGN", "ARITH_OP", "COMPARE_OP", "LOGIC_OP",
     "LPAREN", "RPAREN", "COMMA", "SEMICOLON",
@@ -54,6 +54,8 @@ static TokenType getKeywordToken(const char *str) {
     if (strcmp(str, "ENDDEF") == 0) return TOKEN_ENDDEF;
     if (strcmp(str, "PRINT") == 0) return TOKEN_PRINT;
     if (strcmp(str, "BREAK") == 0) return TOKEN_BREAK;
+    if (strcmp(str, "WHILE") == 0) return TOKEN_WHILE;
+    if (strcmp(str, "ENDWHILE") == 0) return TOKEN_NEXT;
     return TOKEN_IDENTIFIER;
 }
 

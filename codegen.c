@@ -21,6 +21,7 @@ static int stringCount = 0;
 
 static int labelCounter = 0;
 static int loopCounter = 0;
+static int whileCounter = 0;
 
 static void emitPrintIntRoutine();
 static void emitPrintStringRoutine();
@@ -202,7 +203,17 @@ static void generateNode(ASTNode *node) {
             printf("jmp _end_loop%d\n", loopCounter - 1);
             break;
         }
-
+        case AST_WHILE: {
+            int currentWhile = whileCounter++;
+            printf("_while_start%d:\n", currentWhile);
+            generateNode(node->children[0]);  // condizione
+            printf("cmp rax, 0\n");
+            printf("je _while_end%d\n", currentWhile);
+            generateNode(node->children[1]); // corpo del while
+            printf("jmp _while_start%d\n", currentWhile);
+            printf("_while_end%d:\n", currentWhile);
+            break;
+        }
         case AST_FUNCTION_DEF:
             printf("%s:\n", node->value);
             for (int i = 0; i < node->childCount; i++) {

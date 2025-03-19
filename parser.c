@@ -46,6 +46,7 @@ static ASTNode* parseLoopStatement();
 static ASTNode* parseFunctionDef();
 static ASTNode* parseReturnStatement();
 static ASTNode* parsePrintStatement();
+static ASTNode* parseWhileStatement();
 
 // ---------- PARSER ENTRY POINT ----------
 ASTNode* parseProgram() {
@@ -95,6 +96,8 @@ static ASTNode* parseStatement() {
         case TOKEN_BREAK:  // Aggiunto qui
             advance();
             return createASTNode(AST_BREAK, "");
+        case TOKEN_WHILE:
+            return parseWhileStatement();    
         case TOKEN_IDENTIFIER: {
             // Potrebbe essere un assignment o un'espressione, verifichiamo se c'è un '=' dopo
             if (tokens[currentIndex+1].type == TOKEN_ASSIGN) {
@@ -110,6 +113,8 @@ static ASTNode* parseStatement() {
             return NULL;
     }
 }
+
+
 
 // ---------- VAR DECL:  VAR IDENTIFIER = expression ----------
 static ASTNode* parseVarDecl() {
@@ -182,6 +187,23 @@ static ASTNode* parseLoopStatement() {
     return loopNode;
 }
 
+
+static ASTNode* parseWhileStatement() {
+    expect(TOKEN_WHILE, "Atteso 'WHILE'");
+    ASTNode* whileNode = createASTNode(AST_WHILE, "");
+
+    // Parsing della condizione
+    ASTNode* condition = parseExpression();
+    addChild(whileNode, condition);
+
+    // Parsing del corpo del while
+    TokenType stops[] = { TOKEN_NEXT }; // o TOKEN_ENDWHILE se lo preferisci
+    ASTNode* loopBlock = parseStatementList(stops, 1);
+    addChild(whileNode, loopBlock);
+
+    expect(TOKEN_NEXT, "Atteso 'NEXT' dopo WHILE");
+    return whileNode;
+}
 
 
 // ---------- FUNCTION DEF: DEFINE FUNCTION IDENTIFIER '(' ')' statement_list ENDDEF ----------

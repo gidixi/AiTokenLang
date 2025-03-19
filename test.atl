@@ -1,63 +1,17 @@
-VAR limite_superiore = 30
-VAR numero_corrente = 2
-VAR temp = 0
-VAR risultato_primo = 0
-VAR contatore_primi = 0
-VAR fattoriale_base = 5
-VAR risultato_fattoriale = 1
+VAR N = 10
+VAR somma = 0
+VAR i = 1
 
-PRINT "Test del sistema - Numeri Primi e Fattoriale"
-PRINT "-------------------------------------------"
+PRINT "Calcolo somma primi"
+PRINT N
+PRINT "numeri"
 
-LOOP numero_corrente <= limite_superiore
-    temp = numero_corrente
-    verificaPrimo()
-    IF risultato_primo == 1 THEN PRINT "Primo trovato:" PRINT numero_corrente contatore_primi = contatore_primi + 1 ENDIF
-    numero_corrente = numero_corrente + 1
+LOOP i <= N
+    somma = somma + i
+    i = i + 1
 NEXT
 
-PRINT "------------------"
-PRINT "Totale numeri primi:"
-PRINT contatore_primi
-PRINT "------------------"
-
-PRINT "Calcolo fattoriale di:"
-PRINT fattoriale_base
-calcolaFattoriale()
 PRINT "Risultato:"
-PRINT risultato_fattoriale
+PRINT somma
 
-DEFINE FUNCTION verificaPrimo()
-    VAR numero = temp
-    risultato_primo = 0
-    
-    IF numero < 2 THEN RETURN ENDIF
-    IF numero == 2 THEN risultato_primo = 1 RETURN ENDIF
-    IF numero % 2 == 0 THEN RETURN ENDIF
-    
-    VAR divisore = 3
-    VAR limite_divisore = numero / 2
-    
-    LOOP divisore <= limite_divisore
-        IF numero % divisore == 0 THEN RETURN ENDIF
-        divisore = divisore + 2
-    NEXT
-    
-    risultato_primo = 1
-    RETURN
-ENDDEF
-
-DEFINE FUNCTION calcolaFattoriale()
-    VAR n = fattoriale_base
-    risultato_fattoriale = 1
-    VAR i = 1
-    
-    LOOP i <= n
-        risultato_fattoriale = risultato_fattoriale * i
-        i = i + 1
-        
-        IF risultato_fattoriale > 100 THEN PRINT "Attenzione: superato limite 100!" BREAK ENDIF
-    NEXT
-    
-    RETURN
-ENDDEF
+IF somma > 50 THEN PRINT "Somma grande!" ELSE PRINT "Somma piccola" ENDIF
