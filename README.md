@@ -1,5 +1,8 @@
 # AiTokenLang
 
+
+
+```bash
 gcc main.c lexer.c parser.c ast.c codegen.c symbol_table.c -o compiler
 
 ./compiler test.atl
@@ -8,3 +11,5 @@ gcc main.c lexer.c parser.c ast.c codegen.c symbol_table.c -o compiler
 nasm -f elf64 output.asm 
 ld -o program output.asm
 ./program
+
+```
